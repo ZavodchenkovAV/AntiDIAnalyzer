@@ -35,18 +35,28 @@ namespace AntiDIAnalyzer.Test
 
     namespace ConsoleApplication1
     {
-        class TypeName
+        abstract class BaseTypeName
         {   
         }
+ class TypeName:BaseTypeName
+        {   
+        }
+class TestTypeName
+{
+TestTypeName()
+{
+    new TypeName();
+}
+}
     }";
             var expected = new DiagnosticResult
             {
-                Id = "AntiDIAnalyzer",
-                Message = String.Format("Type name '{0}' contains lowercase letters", "TypeName"),
+                Id = AntiDIAnalyzerAnalyzer.DiagnosticId,
+                Message = AntiDIAnalyzerAnalyzer.MessageFormat.ToString(),
                 Severity = DiagnosticSeverity.Warning,
                 Locations =
                     new[] {
-                            new DiagnosticResultLocation("Test0.cs", 11, 15)
+                            new DiagnosticResultLocation("Test0.cs", 21, 5)
                         }
             };
 
